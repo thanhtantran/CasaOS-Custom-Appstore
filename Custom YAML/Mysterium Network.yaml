@@ -1,0 +1,50 @@
+name: mysterium-node
+services:
+  myst:
+    cap_add:
+      - NET_ADMIN
+    cpu_shares: 90
+    command:
+      - service --agreed-terms-and-conditions
+    container_name: mysterium-node
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    image: mysteriumnetwork/myst:latest
+    labels:
+      icon: https://raw.githubusercontent.com/mysteriumnetwork/node/master/logo.png
+    ports:
+      - target: 4449
+        published: "4449"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/mysterium
+        target: /var/lib/mysterium-node
+    devices: []
+    environment: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author:  Tony Tran
+  category: 
+  hostname: ""
+  icon: https://raw.githubusercontent.com/mysteriumnetwork/node/master/logo.png
+  thumbnail: https://raw.githubusercontent.com/mysteriumnetwork/node/master/logo.png  
+  index: /
+  port_map: "4449"
+  scheme: http
+  store_app_id: mysterium-node
+  title:
+    custom: Mysterium Network
+  main: myst
+  description:
+    en_us: An open-source ecosystem of protocols, tools and infrastructure to liberate the web.
+  tagline:
+    en_us: Cross-platform software to run a node in Mysterium Network. It contains Mysterium server (node), client API (tequila API) and client-cli (console client) for Mysterium Network.
+  developer: Mysterium Network       

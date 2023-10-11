@@ -1,0 +1,87 @@
+name: Ghost
+services:
+  ghost:
+    cpu_shares: 90
+    command: []
+    depends_on:
+      db:
+        condition: service_started
+        required: true
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - database__client=mysql
+      - database__connection__database=ghost
+      - database__connection__host=db
+      - database__connection__password=casaos
+      - database__connection__user=casaos
+      - url=https://thanhtan.net
+    image: ghost:latest
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+    ports:
+      - target: 2368
+        published: "3001"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost
+        target: /var/lib/ghost/content
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+    container_name: "ghost"
+  db:
+    cpu_shares: 90
+    command: []
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - MYSQL_DATABASE=ghost
+      - MYSQL_PASSWORD=casaos
+      - MYSQL_ROOT_PASSWORD=casaos
+      - MYSQL_USER=casaos
+    image: mariadb:10.6.4-focal
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost/mysql
+        target: /var/lib/mysql
+    ports: []
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+    container_name: "mariadb"
+networks:
+  default:
+    name: ghost_default
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: TonyTran
+  category: self
+  description:
+    en_us: Ghost is a free and open source blogging platform written in JavaScript.
+  developer: Ghost Foundation
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+  index: /
+  main: ghost
+  port_map: "3001"
+  scheme: http
+  store_app_id: ghost
+  tagline:
+    en_us: Ghost
+  thumbnail: ""
+  title:
+    en_us: Ghost

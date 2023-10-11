@@ -1,0 +1,95 @@
+name: wordpress
+services:
+  app:
+    cpu_shares: 90
+    command: []
+    depends_on:
+      db:
+        condition: service_started
+        required: true
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - WORDPRESS_DB_HOST=db
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_PASSWORD=casaos
+      - WORDPRESS_DB_USER=casaos
+    image: wordpress:latest
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/wordpress.png
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8007"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/wordpress/html
+        target: /var/www/html
+        bind:
+          create_host_path: true
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+    container_name: ""
+  db:
+    cpu_shares: 90
+    command: []
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_PASSWORD=casaos
+      - MYSQL_ROOT_PASSWORD=casaos
+      - MYSQL_USER=casaos
+    image: mariadb:10.6.4-focal
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/wordpress.png
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/wordpress/mysql
+        target: /var/lib/mysql
+        bind:
+          create_host_path: true
+    ports: []
+    devices: []
+    cap_add: []
+    networks:
+      - default
+    privileged: false
+    container_name: ""
+networks:
+  default:
+    name: wordpress_default
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: TonyTran
+  category: self
+  description:
+    en_us: Initially started as a blogging tool in 2003, it has evolved into a
+      highly flexible CMS that powers over 40% of the web (as of my last
+      training data in 2022).
+  developer: Automattic
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/wordpress.png
+  index: /
+  main: app
+  port_map: "8007"
+  scheme: http
+  store_app_id: wordpress
+  tagline:
+    en_us: WordPress
+  thumbnail: ""
+  title:
+    custom: ""
+    en_us: WordPress

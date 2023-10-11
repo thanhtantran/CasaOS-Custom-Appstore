@@ -1,0 +1,62 @@
+name: ghost
+services:
+  app:
+    image: ghost:5.67.0
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: casaos
+      database__connection__password: casaos
+      database__connection__database: casaos
+    x-casaos:
+      envs: []
+    ports:
+      - target: 2368
+        published: 2368
+        protocol: tcp
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost/content
+        target: /var/lib/ghost/content
+  db:
+    image: mariadb:11.1
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: casaos
+      MYSQL_DATABASE: casaos
+      MYSQL_USER: casaos
+      MYSQL_PASSWORD: casaos
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost/mysql
+        target: /var/lib/mysql
+    healthcheck:
+      test:
+        - CMD
+        - healthcheck.sh
+        - '--connect'
+        - '--innodb_initialized'
+      interval: 10s
+      timeout: 5s
+      retries: 3
+x-casaos:
+  architectures:
+    - amd64
+    - arm
+    - arm64
+  main: app
+  description:
+    en_us: Free and open-source blogging platform
+  tagline:
+    en_us: Free And Open-source Blogging Platform
+  developer: ''
+  author: WisdomSky
+  icon: https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/ghost.png
+  thumbnail: https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/ghost.png
+  title:
+    en_us: Ghost
+  category: Coolstore
+  port_map: '2368'

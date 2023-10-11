@@ -1,0 +1,94 @@
+name: nextcloudpi_old
+services:
+    nextcloudpi_old:
+        command:
+            - nextcloud.ttcorp.net
+        environment:
+            APACHE_LOCK_DIR: /var/lock/apache2
+            APACHE_LOG_DIR: /var/log/apache2
+            APACHE_PID_FILE: /var/run/apache2.pid
+            APACHE_RUN_DIR: /var/run/apache2
+            APACHE_RUN_GROUP: www-data
+            APACHE_RUN_USER: www-data
+            DOCKERBUILD: "1"
+            MINIMUM_NC_VERSION: "24"
+            PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+        image: ownyourbits/nextcloudpi
+        network_mode: default
+        ports:
+            - target: 443
+              published: "8443"
+              protocol: tcp
+            - target: 4443
+              published: "4443"
+              protocol: tcp
+            - target: 80
+              published: "8001"
+              protocol: tcp
+        restart: "no"
+        volumes:
+            - type: bind
+              source: /mnt/nextcloud
+              target: /data
+        x-casaos:
+            envs:
+                - container: PATH
+                  description:
+                    en_us: ""
+                - container: DOCKERBUILD
+                  description:
+                    en_us: ""
+                - container: APACHE_RUN_USER
+                  description:
+                    en_us: ""
+                - container: APACHE_RUN_GROUP
+                  description:
+                    en_us: ""
+                - container: APACHE_LOG_DIR
+                  description:
+                    en_us: ""
+                - container: APACHE_LOCK_DIR
+                  description:
+                    en_us: ""
+                - container: APACHE_PID_FILE
+                  description:
+                    en_us: ""
+                - container: APACHE_RUN_DIR
+                  description:
+                    en_us: ""
+                - container: MINIMUM_NC_VERSION
+                  description:
+                    en_us: ""
+            ports:
+                - container: "443"
+                  description:
+                    en_us: ""
+                - container: "4443"
+                  description:
+                    en_us: ""
+                - container: "80"
+                  description:
+                    en_us: ""
+            volumes:
+                - container: /data
+                  description:
+                    en_us: ""
+x-casaos:
+    architectures:
+        - arm64
+    author: CasaOS User
+    category: unknown
+    description:
+        en_us: ""
+    developer: unknown
+    icon: ""
+    main: nextcloudpi_old
+    port_map: "8443"
+    scheme: https
+    tagline:
+        en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or earlier)
+    thumbnail: ""
+    tips:
+        custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or earlier)
+    title:
+        en_us: nextcloudpi

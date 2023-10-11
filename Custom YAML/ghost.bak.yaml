@@ -1,0 +1,104 @@
+name: ghost
+services:
+  ghost:
+    command:
+      - node
+      - current/index.js
+    environment:
+      - GHOST_CLI_VERSION=1.25.2
+      - GHOST_CONTENT=/var/lib/ghost/content
+      - GHOST_INSTALL=/var/lib/ghost
+      - GHOST_VERSION=5.67.0
+      - GOSU_VERSION=1.16
+      - NODE_ENV=development
+      - NODE_VERSION=18.18.0
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - YARN_VERSION=1.22.19
+      - database__connection__filename=/var/lib/ghost/content/data/ghost.db
+    image: ghost
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+    ports:
+      - target: 2368
+        published: "3001"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost
+        target: /var/lib/ghost/content
+    x-casaos:
+      envs:
+        - container: NODE_ENV
+          description:
+            en_us: ""
+        - container: database__connection__filename
+          description:
+            en_us: ""
+        - container: PATH
+          description:
+            en_us: ""
+        - container: NODE_VERSION
+          description:
+            en_us: ""
+        - container: YARN_VERSION
+          description:
+            en_us: ""
+        - container: GOSU_VERSION
+          description:
+            en_us: ""
+        - container: GHOST_CLI_VERSION
+          description:
+            en_us: ""
+        - container: GHOST_INSTALL
+          description:
+            en_us: ""
+        - container: GHOST_CONTENT
+          description:
+            en_us: ""
+        - container: GHOST_VERSION
+          description:
+            en_us: ""
+      ports:
+        - container: "2368"
+          description:
+            en_us: ""
+      volumes:
+        - container: /var/lib/ghost/content
+          description:
+            en_us: ""
+    devices: []
+    cap_add: []
+    network_mode: root_default
+    privileged: false
+    restart: unless-stopped
+    container_name: ""
+    cpu_shares: 90
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+x-casaos:
+  architectures:
+    - arm64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: ""
+  developer: unknown
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+  main: ghost
+  port_map: "3001"
+  scheme: http
+  store_app_id: ghost
+  tagline:
+    en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  thumbnail: ""
+  tips:
+    custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  title:
+    en_us: ghost
+    custom: ""
+  hostname: ""
+  index: /

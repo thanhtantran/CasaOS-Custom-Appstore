@@ -1,0 +1,75 @@
+name: ghost
+services:
+  ghost:
+    command:
+      - node
+      - current/index.js
+    environment:
+      - GHOST_CLI_VERSION=1.25.2
+      - GHOST_CONTENT=/var/lib/ghost/content
+      - GHOST_INSTALL=/var/lib/ghost
+      - GHOST_VERSION=5.67.0
+      - GOSU_VERSION=1.16
+      - NODE_ENV=development
+      - NODE_VERSION=18.18.0
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - YARN_VERSION=1.22.19
+      - database__client: mysql
+      - database__connection__host: db
+      - database__connection__user: casaos
+      - database__connection__password: casaos
+      - database__connection__database: ghost
+      - url: https://thanhtan.net
+    image: ghost
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+    ports:
+      - target: 2368
+        published: "3001"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost
+        target: /var/lib/ghost/content
+    container_name: "ghost"
+    cpu_shares: 90
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+  db:
+    image: mariadb:10.6.4-focal
+    environment:
+      - MYSQL_DATABASE=ghost
+      - MYSQL_PASSWORD=casaos
+      - MYSQL_ROOT_PASSWORD=casaos
+      - MYSQL_USER=casaos
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/ghost/mysql
+        target: /var/lib/mysql  
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Tony Tran
+  category: blog
+  description:
+    en_us: ""
+  developer: Tony Tran
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/AppIcon@main/all/ghost.png
+  main: ghost
+  port_map: "3001"
+  scheme: http
+  store_app_id: ghost
+  tagline:
+    en_us: 
+  thumbnail: ""
+  tips:
+    custom: 
+  title:
+    en_us: ghost
+    custom: ""
+  hostname: ""
+  index: /

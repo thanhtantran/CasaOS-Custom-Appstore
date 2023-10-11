@@ -1,0 +1,61 @@
+name: cloudflare-tunnel
+services:
+  cloudflare-tunnel:
+    command:
+      - tunnel
+      - --no-autoupdate
+      - run
+      - --token
+      - eyJhIjoiYjdhNTI2NDU3N2VkNTI4YmJhY2Q4NDllMjYzYjI2YzIiLCJ0IjoiZTFiMjEwNDUtOWRhOS00ZWM5LThiNDMtZTk3NmRkMzU4MWQzIiwicyI6Ik1tSXlaRE15WVdRdFpHRTNPQzAwT0dGaUxUaGxNRGd0T1RFNE9ETTRNelZsTWpSbCJ9
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    image: cloudflare/cloudflared:latest
+    labels:
+      icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/icon.png
+    restart: unless-stopped
+    x-casaos:
+      envs:
+        - container: PATH
+          description:
+            en_us: ""
+        - container: SSL_CERT_FILE
+          description:
+            en_us: ""
+    ports: []
+    volumes: []
+    devices: []
+    cap_add: []
+    network_mode: default
+    privileged: false
+    container_name: ""
+    cpu_shares: 90
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+x-casaos:
+  architectures:
+    - arm64
+  author: CasaOS User
+  category: unknown
+  description:
+    en_us: ""
+  developer: unknown
+  icon: https://cdn.jsdelivr.net/gh/IceWhaleTech/CasaOS-AppStore@main/Apps/Cloudflared/icon.png
+  main: cloudflare-tunnel
+  scheme: http
+  store_app_id: cloudflare-tunnel
+  tagline:
+    en_us: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  thumbnail: ""
+  tips:
+    custom: This is a compose app converted from a legacy app (CasaOS v0.4.3 or
+      earlier)
+  title:
+    en_us: cloudflare-tunnel
+    custom: ""
+  hostname: ""
+  index: /
+  port_map: ""
