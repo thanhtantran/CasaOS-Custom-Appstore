@@ -16,6 +16,6 @@ App:
 - Konga for ebook management and reader online
 - Glances as the home server status monitoring
 
-My home server Casa OS
+My home server CasaOS using [Orange Pi 5 16GB RAM](https://orangepi.vn/shop/orange-pi-5-chip-rk3588s-ram-16gb) and [SSD NVMe 256 2242](https://orangepi.vn/shop/o-cung-ssd-nvme-128gb-2242-kingspec)
 
 ![casaos-08122023](https://github.com/thanhtantran/CasaOS-Custom-Appstore/assets/5319910/0c5fe623-06ad-4158-8e69-fe2fdb9975a3)
