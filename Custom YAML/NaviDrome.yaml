@@ -1,0 +1,44 @@
+name: poetic_nico
+services:
+  navidrome:
+    cpu_shares: 90
+    command: []
+    container_name: navidrome
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - ND_LOGLEVEL=info
+      - ND_SCANSCHEDULE=1h
+      - ND_SESSIONTIMEOUT=24h
+    image: deluan/navidrome:pr-2622
+    labels:
+      icon: https://avatars.githubusercontent.com/u/26692192?s=200&v=4
+    ports:
+      - target: 4533
+        published: "4533"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/navidrome
+        target: /data
+      - type: bind
+        source: /DATA/Media/Music
+        target: /music
+    devices: []
+    cap_add: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://avatars.githubusercontent.com/u/26692192?s=200&v=4
+  index: /
+  port_map: "4533"
+  scheme: http
+  store_app_id: poetic_nico
+  title:
+    custom: NaviDrome

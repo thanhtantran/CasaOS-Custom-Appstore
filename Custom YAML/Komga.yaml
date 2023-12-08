@@ -1,0 +1,46 @@
+name: splendid_thiago
+services:
+  komga:
+    cpu_shares: 90
+    command: []
+    container_name: komga
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    image: gotson/komga
+    labels:
+      icon: https://komga.org/img/logo.svg
+    ports:
+      - target: 25600
+        published: "25600"
+        protocol: tcp
+    restart: unless-stopped
+    user: 1000:1000
+    volumes:
+      - type: bind
+        source: /DATA/AppData/komga/config
+        target: /config
+      - type: bind
+        source: /DATA/Documents
+        target: /data
+      - type: bind
+        source: /etc/timezone
+        target: /etc/timezone
+        read_only: true
+    devices: []
+    cap_add: []
+    environment: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://komga.org/img/logo.svg
+  index: /
+  port_map: "25600"
+  scheme: http
+  store_app_id: splendid_thiago
+  title:
+    custom: Komga

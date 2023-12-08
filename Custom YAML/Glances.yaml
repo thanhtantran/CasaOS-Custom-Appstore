@@ -1,0 +1,41 @@
+name: glances
+services:
+  glances:
+    cap_add:
+      - NET_ADMIN
+    cpu_shares: 90
+    command: []
+    container_name: glances
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - GLANCES_OPT=-w
+    image: docker.io/nicolargo/glances
+    labels:
+      icon: https://nicolargo.github.io/glances/public/images/glances.png
+    pid: host
+    ports:
+      - target: 61208
+        published: "61208"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+    devices: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://nicolargo.github.io/glances/public/images/glances.png
+  index: /
+  port_map: "61208"
+  scheme: http
+  store_app_id: glances
+  title:
+    custom: Glances

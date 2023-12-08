@@ -1,0 +1,42 @@
+name: ravishing_nico
+services:
+  app:
+    cpu_shares: 90
+    command: []
+    container_name: serpbear
+    deploy:
+      resources:
+        limits:
+          memory: 15718M
+    environment:
+      - APIKEY=5saedXklbslhnapihe2pihp3pih4fdnakhjwq5
+      - PASSWORD=0123456789
+      - SECRET=4715aed3216f7b0a38e6b534a958362654e96d10fbc04700770d572af3dce43625dd
+      - USER=admin
+    image: thanhtantran/serpbear:latest
+    labels:
+      icon: https://cf.appdrag.com/dashboard-openvm-clo-b2d42c/uploads/SerpBear-6MHU.png
+    ports:
+      - target: 3000
+        published: "3456"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/serpbear
+        target: /app/data
+    devices: []
+    cap_add: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://cf.appdrag.com/dashboard-openvm-clo-b2d42c/uploads/SerpBear-6MHU.png
+  index: /
+  port_map: "3456"
+  scheme: http
+  store_app_id: ravishing_nico
+  title:
+    custom: SerpBear
